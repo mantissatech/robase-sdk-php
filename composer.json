@@ -1,0 +1,36 @@
+{
+    "name": "robase/sdk",
+    "description": "Official PHP client for the Robase SMS OTP and transactional SMS API",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["robase", "sms", "otp", "2fa", "verification", "transactional-sms", "africa"],
+    "homepage": "https://robase.dev",
+    "support": {
+        "issues": "https://github.com/mantissatech/robase-sdk-php/issues",
+        "source": "https://github.com/mantissatech/robase-sdk-php"
+    },
+    "require": {
+        "php": ">=8.1",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Robase\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Robase\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

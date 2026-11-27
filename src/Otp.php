@@ -29,6 +29,7 @@ final class Otp
      * @param int|null                  $ttlSeconds  Validity window, up to 3600. Server default is 600.
      * @param array<string, mixed>|null $metadata    Arbitrary data stored with the OTP.
      * @param array<string, mixed>      $options     Per-call overrides; see {@see Client::request()}.
+     * @param string|null               $code        Optional 4 to 8 digit code. Null lets Robase generate one.
      *
      * @throws RobaseException
      */
@@ -38,6 +39,7 @@ final class Otp
         ?int $ttlSeconds = null,
         ?array $metadata = null,
         array $options = [],
+        ?string $code = null,
     ): SendOtpResult {
         if ($phoneNumber === '') {
             throw new ValidationException('validation_error', 'phone_number is required');
@@ -54,6 +56,9 @@ final class Otp
         }
         if ($metadata !== null) {
             $body['metadata'] = $metadata;
+        }
+        if ($code !== null) {
+            $body['code'] = $code;
         }
 
         return SendOtpResult::fromArray($this->client->request('POST', '/v1/otp/send', $body, $options));

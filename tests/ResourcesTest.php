@@ -73,6 +73,17 @@ final class ResourcesTest extends TestCase
         ], $transport->decodedBody());
     }
 
+    public function testOtpSendIncludesACallerSuppliedCodeWhenGiven(): void
+    {
+        [$client, $transport] = $this->client([StubTransport::json([])]);
+        $client->otp->send('+2348012345678', code: '908172');
+
+        self::assertSame([
+            'phone_number' => '+2348012345678',
+            'code' => '908172',
+        ], $transport->decodedBody());
+    }
+
     public function testOtpSendRejectsAnEmptyPhoneNumberWithoutCallingTheApi(): void
     {
         [$client, $transport] = $this->client([StubTransport::json([])]);

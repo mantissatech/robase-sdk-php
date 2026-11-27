@@ -43,7 +43,7 @@ $robase = new Robase\Client(
 );
 ```
 
-Every method takes a final `$options` array for per-call overrides:
+Methods take an `$options` array for per-call overrides. OTP send keeps that array where it was and adds an optional `code` after it, so existing positional calls still work:
 
 ```php
 $robase->sms->send('+2348012345678', 'Shipped!', options: [
@@ -63,7 +63,7 @@ the network.
 
 | Method | Endpoint |
 |---|---|
-| `$robase->otp->send($phoneNumber, $codeLength, $ttlSeconds, $metadata, $options)` | `POST /v1/otp/send` |
+| `$robase->otp->send($phoneNumber, $codeLength, $ttlSeconds, $metadata, $options, $code)` | `POST /v1/otp/send` |
 | `$robase->otp->verify($otpId, $code, $options)` | `POST /v1/otp/verify` |
 | `$robase->otp->get($id, $options)` | `GET /v1/otp/{id}` |
 
@@ -73,6 +73,7 @@ $sent = $robase->otp->send(
     codeLength: 6,                  // optional, 4–8, defaults to 6
     ttlSeconds: 600,                // optional, ≤3600, defaults to 600
     metadata: ['user_id' => 'u_123'],
+    code: '908172',                 // optional, 4 to 8 digits; omit to generate
 );
 ```
 
